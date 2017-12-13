@@ -67,7 +67,7 @@ var Zone$1 = (function (global) {
             enumerable: true,
             configurable: true
         });
-        
+
         Object.defineProperty(Zone, "currentTask", {
             get: function () {
                 return _currentTask;
@@ -75,7 +75,7 @@ var Zone$1 = (function (global) {
             enumerable: true,
             configurable: true
         });
-        
+
         Zone.__load_patch = function (name, fn) {
             if (patches.hasOwnProperty(name)) {
                 throw Error('Already loaded patch: ' + name);
@@ -94,7 +94,7 @@ var Zone$1 = (function (global) {
             enumerable: true,
             configurable: true
         });
-        
+
         Object.defineProperty(Zone.prototype, "name", {
             get: function () {
                 return this._name;
@@ -102,7 +102,7 @@ var Zone$1 = (function (global) {
             enumerable: true,
             configurable: true
         });
-        
+
         Zone.prototype.get = function (key) {
             var zone = this.getZoneWith(key);
             if (zone)
@@ -1522,7 +1522,8 @@ function patchEventTarget(_global, apis, patchOptions) {
                 var target = this || _global;
                 var targetZone = Zone.current;
                 var delegate = arguments[1];
-                if (!delegate) {
+                var disableZoneJs = arguments[2];
+                if (!delegate || disableZoneJs) {
                     return nativeListener.apply(this, arguments);
                 }
                 // don't create the bind delegate function for handleEvent
